@@ -9,7 +9,7 @@ from pydantic import BaseModel, Field
 class PilotConfig(BaseModel):
     """Runtime configuration for IncidentPilot."""
 
-    anthropic_api_key: str = Field("", description="Anthropic API key")
+    openrouter_api_key: str = Field("", description="OpenRouter API key")
     pagerduty_token: str = Field("", description="PagerDuty API token")
     runbook_dir: str = Field("runbooks", description="Path to runbook files")
     industry: str = Field("fintech", description="Industry context")
@@ -19,7 +19,7 @@ class PilotConfig(BaseModel):
     @classmethod
     def from_env(cls) -> "PilotConfig":
         return cls(
-            anthropic_api_key=os.environ.get("ANTHROPIC_API_KEY", ""),
+            openrouter_api_key=os.environ.get("OPENROUTER_API_KEY", ""),
             pagerduty_token=os.environ.get("PAGERDUTY_TOKEN", ""),
             runbook_dir=os.environ.get("RUNBOOK_DIR", "runbooks"),
             industry=os.environ.get("PILOT_INDUSTRY", "fintech"),
@@ -27,4 +27,4 @@ class PilotConfig(BaseModel):
 
     @property
     def has_api_key(self) -> bool:
-        return bool(self.anthropic_api_key)
+        return bool(self.openrouter_api_key)

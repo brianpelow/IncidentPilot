@@ -1,4 +1,4 @@
-"""Runbook agent — retrieves and summarizes relevant runbooks."""
+"""Runbook agent â€” retrieves and summarizes relevant runbooks."""
 
 from __future__ import annotations
 
@@ -44,8 +44,8 @@ def _find_runbook(incident: Incident, triage: TriageResult, runbook_dir: Path) -
 
 def _ai_summarize_runbook(content: str, incident: Incident, config: PilotConfig) -> RunbookResult:
     try:
-        import anthropic
-        client = anthropic.Anthropic(api_key=config.anthropic_api_key)
+        from openai import OpenAI
+        client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=config.openrouter_api_key)
         prompt = f"""Summarize this runbook for an on-call engineer responding to: {incident.title}
 
 Runbook content:
@@ -61,12 +61,12 @@ Return a JSON object with:
 Return only valid JSON."""
 
         import json
-        message = client.messages.create(
+        message = client.chat.completions.create(
             model=config.model,
             max_tokens=600,
             messages=[{"role": "user", "content": prompt}],
         )
-        data = json.loads(message.content[0].text)
+        data = json.loads(message.choices[0].message.content)
         return RunbookResult(**data)
     except Exception:
         return _extract_runbook_steps(content, incident)

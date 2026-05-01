@@ -1,4 +1,4 @@
-"""Triage agent — classifies incident severity and affected services."""
+"""Triage agent â€” classifies incident severity and affected services."""
 
 from __future__ import annotations
 
@@ -24,8 +24,8 @@ def triage_incident(incident: Incident, config: PilotConfig) -> TriageResult:
 def _ai_triage(incident: Incident, config: PilotConfig) -> TriageResult:
     """Use Claude to triage the incident."""
     try:
-        import anthropic
-        client = anthropic.Anthropic(api_key=config.anthropic_api_key)
+        from openai import OpenAI
+        client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=config.openrouter_api_key)
         prompt = f"""You are an SRE triaging an incident for a {config.industry} platform.
 
 Incident: {incident.title}
@@ -41,13 +41,13 @@ Respond with a JSON object containing:
 
 Return only valid JSON, no other text."""
 
-        message = client.messages.create(
+        message = client.chat.completions.create(
             model=config.model,
             max_tokens=500,
             messages=[{"role": "user", "content": prompt}],
         )
         import json
-        data = json.loads(message.content[0].text)
+        data = json.loads(message.choices[0].message.content)
         return TriageResult(**data)
     except Exception:
         return _rule_based_triage(incident)

@@ -1,4 +1,4 @@
-"""Postmortem agent — drafts structured post-mortem documents."""
+"""Postmortem agent â€” drafts structured post-mortem documents."""
 
 from __future__ import annotations
 
@@ -28,9 +28,9 @@ def _ai_postmortem(
     config: PilotConfig,
 ) -> PostmortemResult:
     try:
-        import anthropic
+        from openai import OpenAI
         import json
-        client = anthropic.Anthropic(api_key=config.anthropic_api_key)
+        client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=config.openrouter_api_key)
 
         prompt = f"""You are an SRE writing a blameless post-mortem for a {config.industry} engineering team.
 
@@ -54,12 +54,12 @@ Write a blameless post-mortem as JSON with:
 
 Return only valid JSON."""
 
-        message = client.messages.create(
+        message = client.chat.completions.create(
             model=config.model,
             max_tokens=800,
             messages=[{"role": "user", "content": prompt}],
         )
-        data = json.loads(message.content[0].text)
+        data = json.loads(message.choices[0].message.content)
         return PostmortemResult(**data)
     except Exception:
         return _template_postmortem(incident, triage, escalation, runbook, config)
