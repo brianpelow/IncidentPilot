@@ -5,7 +5,7 @@
     "service": "payments-service",
     "severity": "high",
     "status": "open",
-    "created_at": "2026-07-14T04:46:41.174505",
+    "created_at": "2026-07-15T04:46:18.909752",
     "description": "Automated nightly workflow validation"
   },
   "triage": {
@@ -79,5 +79,5 @@
     "compliance_notes": "This incident must be logged in the change management system within 1 hour per FFIEC and SOX requirements. Post-mortem review required within 5 business days."
   },
   "status": "complete",
-  "completed_at": "2026-07-14T04:46:41.174673"
+  "completed_at": "2026-07-15T04:46:18.909932"
 }
