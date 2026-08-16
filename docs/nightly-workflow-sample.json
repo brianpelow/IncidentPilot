@@ -5,7 +5,7 @@
     "service": "payments-service",
     "severity": "high",
     "status": "open",
-    "created_at": "2026-08-15T02:45:52.157033",
+    "created_at": "2026-08-16T02:54:06.841464",
     "description": "Automated nightly workflow validation"
   },
   "triage": {
@@ -55,12 +55,12 @@
     "title": "Post-Mortem: Nightly agent test \u2014 payment latency spike",
     "summary": "A high severity incident affected payments-service and was handled by payments-team. Estimated resolution time: 45 minutes.",
     "timeline": [
-      "02:45 - Incident triggered: Nightly agent test \u2014 payment latency spike",
-      "02:45 - Triage completed, severity classified as high",
-      "02:45 - payments-team paged via #incidents, #payments-team",
-      "02:45 - Runbook generic-incident-runbook retrieved and executed",
-      "02:45 - Service restored, monitoring confirmed stable",
-      "02:45 - Post-mortem drafted"
+      "02:54 - Incident triggered: Nightly agent test \u2014 payment latency spike",
+      "02:54 - Triage completed, severity classified as high",
+      "02:54 - payments-team paged via #incidents, #payments-team",
+      "02:54 - Runbook generic-incident-runbook retrieved and executed",
+      "02:54 - Service restored, monitoring confirmed stable",
+      "02:54 - Post-mortem drafted"
     ],
     "root_cause": "Root cause under investigation for payments-service. See action items.",
     "contributing_factors": [
@@ -79,5 +79,5 @@
     "compliance_notes": "This incident must be logged in the change management system within 1 hour per FFIEC and SOX requirements. Post-mortem review required within 5 business days."
   },
   "status": "complete",
-  "completed_at": "2026-08-15T02:45:52.157246"
+  "completed_at": "2026-08-16T02:54:06.841635"
 }
